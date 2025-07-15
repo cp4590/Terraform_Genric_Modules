@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "rg1" {
+resource "azurerm_resource_group" "cp-rg" {
   for_each = var.eah-rg
   name     = each.value.name
   location = each.value.location
