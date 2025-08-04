@@ -6,7 +6,7 @@ steps:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
-    backendServiceArm: 'cptest'
+    backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
     backendAzureRmKey: 'cp.tfstate'
@@ -16,7 +16,7 @@ steps:
     provider: 'azurerm'
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
-    environmentServiceNameAzureRM: 'cptest'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
   inputs:
@@ -24,4 +24,4 @@ steps:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
     commandOptions: '--auto-approve'
-    environmentServiceNameAzureRM: 'cptest'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
