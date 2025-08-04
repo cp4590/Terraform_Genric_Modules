@@ -23,5 +23,4 @@ steps:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
-    commandOptions: '--auto-approve'
     environmentServiceNameAzureRM: 'cptestazuresvc'
