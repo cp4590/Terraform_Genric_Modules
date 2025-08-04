@@ -5,7 +5,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
@@ -15,12 +15,12 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
     environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
     environmentServiceNameAzureRM: 'cptestazuresvc'
