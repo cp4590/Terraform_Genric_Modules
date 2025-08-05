@@ -1,5 +1,5 @@
 trigger: none
-pool: ashirbad-pool
+pool: default
 
 parameters:
 - name: task
