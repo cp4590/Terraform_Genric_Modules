@@ -5,7 +5,7 @@ parameters:
 - name: task
   displayName: choose task 
   type: string
-  default: init
+  # default: init
   values: 
   - init
   - plan
