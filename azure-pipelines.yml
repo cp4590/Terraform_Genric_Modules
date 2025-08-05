@@ -1,10 +1,24 @@
 trigger: none
 pool: ashirbad-pool
+
+parameters:
+- name: task
+  displayName: choose task 
+  type: string
+  default: init
+  values: 
+  - init
+  - plan
+  - apply
+
 steps:
 - task: TerraformTask@5
+  displayName: Terraform init
+  condition: eq('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'init'
+    
     workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
@@ -12,6 +26,8 @@ steps:
     backendAzureRmKey: 'cp.tfstate'
 
 - task: TerraformTask@5
+  displayName: Terraform plan
+  condition: eq('${{ parameters.task }}', 'plan')
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -19,6 +35,8 @@ steps:
     environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
+  displayName: Terraform apply
+  condition: eq('${{ parameters.task }}', 'apply')
   inputs:
     provider: 'azurerm'
     command: 'apply'
