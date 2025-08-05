@@ -2,19 +2,19 @@ trigger: none
 pool: default
 
 parameters:
-- name: task
-  displayName: choose task 
+- name: Env
+  displayName: choose Env
   type: string
-  # default: init
+  default: Dev
   values: 
-  - init
-  - plan
-  - apply
+  - Dev
+  - Pre-Prod
+  - Prod
 
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
-  condition: eq('${{ parameters.task }}', 'init')
+  condition: eq('${{ parameters.task }}', 'dev')
   inputs:
     provider: 'azurerm'
     command: 'init'
