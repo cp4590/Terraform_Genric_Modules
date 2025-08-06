@@ -27,7 +27,7 @@ steps:
 
 - task: TerraformTask@5
   displayName: Terraform plan
-  condition: eq('${{ parameters.task }}', 'plan')
+  condition: eq('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'plan'
