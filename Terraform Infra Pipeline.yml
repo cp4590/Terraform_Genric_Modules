@@ -1,16 +1,25 @@
-name: Terraform Infra Pipeline with Parameters
+
 trigger: none
 pool: default
 
+parameters:
+- name: task
+  displayName: Choose Task
+  type: string
+  default: init
+  values: 
+  - init
+  - plan
+  - apply
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
-  condition: eq('${{ parameters.task }}', 'dev')
+  condition: eq('${{ parameters.task }}', 'init')
+
   inputs:
     provider: 'azurerm'
     command: 'init'
-    
-    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
@@ -22,7 +31,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
     environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
@@ -31,5 +40,5 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
     environmentServiceNameAzureRM: 'cptestazuresvc'
