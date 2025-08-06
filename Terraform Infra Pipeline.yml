@@ -2,27 +2,42 @@ name: Terraform parameter pipeline
 trigger: none
 pool: default
 
-parameters:
-- name: task
-  displayName: Choose Task
-  type: string
-  default: apply
-  values: 
-  - init
-  - plan
-  - apply
+# parameters:
+# - name: task
+#   displayName: Choose Task
+#   type: string
+#   default: apply
+#   values: 
+#   - init
+#   - plan
+#   - apply
 
-variables: 
-  dev-env-wd: '$(System.DefaultWorkingDirectory)/dev-Module'  
+parameters:
+- name: env
+  displayName: Choose env
+  type: string
+  default: dev
+  values: 
+  - dev
+  - pre-prod
+  - prod
+
+variables:
+  workingDir: '$(System.DefaultWorkingDirectory)/${{ parameters.env }}-Module'
+
+# variables: 
+#   dev-env-wd: '$(System.DefaultWorkingDirectory)/dev-Module'
+#   pre-prod-env-wd: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
+#   prod-env-wd: '$(System.DefaultWorkingDirectory)/prod-Module'
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
-  condition: ne('${{ parameters.task }}', 'init')
-
+  # condition: eq('${{ parameters.env }}', 'dev')
+ 
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(dev-env-wd)'
+    workingDirectory: '$(workingDir)'
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
@@ -30,18 +45,18 @@ steps:
 
 - task: TerraformTask@5
   displayName: Terraform plan
-  condition: ne('${{ parameters.task }}', 'init')
+  # condition: ne('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(dev-env-wd)'
+    workingDirectory: '$(workingDir)'
     environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
   displayName: Terraform apply
-  condition: ne('${{ parameters.task }}', 'init')
+  # condition: ne('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(dev-env-wd)'
+    workingDirectory: '$(workingDir)'
     environmentServiceNameAzureRM: 'cptestazuresvc'
