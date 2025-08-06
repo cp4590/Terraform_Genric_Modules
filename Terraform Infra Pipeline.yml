@@ -6,7 +6,7 @@ parameters:
 - name: task
   displayName: Choose Task
   type: string
-  default: init
+  default: apply
   values: 
   - init
   - plan
