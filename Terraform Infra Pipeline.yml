@@ -14,7 +14,7 @@ parameters:
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
-  condition: eq('${{ parameters.task }}', 'init')
+  condition: ne('${{ parameters.task }}', 'init')
 
   inputs:
     provider: 'azurerm'
@@ -27,7 +27,7 @@ steps:
 
 - task: TerraformTask@5
   displayName: Terraform plan
-  condition: eq('${{ parameters.task }}', 'init')
+  condition: ne('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -36,7 +36,7 @@ steps:
 
 - task: TerraformTask@5
   displayName: Terraform apply
-  condition: eq('${{ parameters.task }}', 'apply')
+  condition: ne('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'apply'
