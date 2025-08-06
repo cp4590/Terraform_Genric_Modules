@@ -11,6 +11,9 @@ parameters:
   - init
   - plan
   - apply
+
+variables: 
+  dev-env-wd: '$(System.DefaultWorkingDirectory)/dev-Module'  
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
@@ -19,7 +22,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(dev-env-wd)'
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
@@ -31,7 +34,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(dev-env-wd)'
     environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
@@ -40,5 +43,5 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+    workingDirectory: '$(dev-env-wd)'
     environmentServiceNameAzureRM: 'cptestazuresvc'
