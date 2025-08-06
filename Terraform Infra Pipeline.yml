@@ -1,15 +1,6 @@
+name: Terraform Infra Pipeline with Parameters
 trigger: none
 pool: default
-
-parameters:
-- name: Env
-  displayName: choose Env
-  type: string
-  default: Dev
-  values: 
-  - Dev
-  - Pre-Prod
-  - Prod
 
 steps:
 - task: TerraformTask@5
