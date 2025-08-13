@@ -45,20 +45,19 @@ stages:
 
 - stage: Apply
   displayName: Terraform Apply Stage
+  dependsOn: Plan
   jobs:
-  - job: Apply
-    displayName: Terraform Apply
-    steps:
-    - task: ManualValidation@1
-      inputs:
-        notifyUsers: 'chandrapal31@outlook.com'
-        approvers: 'chandrapal31@outlook.com'
-        instructions: 'pls check'
-
-    - task: TerraformTask@5
-      displayName: Terraform apply
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        workingDirectory: '$(workingDir)'
-        environmentServiceNameAzureRM: 'cptestazuresvc'
+  - deployment: apply_with_approval
+    displayName: Manual Approval & Apply
+    environment: 'apply-env'  # Create this environment in DevOps and set approvals
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: TerraformTask@5
+            displayName: Terraform apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(workingDir)'
+              environmentServiceNameAzureRM: 'cptestazuresvc'
