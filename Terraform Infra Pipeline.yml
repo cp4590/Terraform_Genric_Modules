@@ -17,7 +17,6 @@ variables:
   workingDir: '$(System.DefaultWorkingDirectory)/${{ parameters.env }}-Module'
   stateFileName: '${{ parameters.env }}-cp.tfstate'
   
-
 steps:
 - task: TerraformTask@5
   displayName: terraform init
@@ -40,7 +39,6 @@ steps:
 
 - task: TerraformTask@5
   displayName: Terraform apply
-  # condition: ne('${{ parameters.task }}', 'init')
   inputs:
     provider: 'azurerm'
     command: 'apply'
