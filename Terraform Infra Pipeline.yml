@@ -2,15 +2,6 @@ name: Terraform parameter pipeline
 trigger: none
 pool: default
 
-# parameters:
-# - name: task
-#   displayName: Choose Task
-#   type: string
-#   default: apply
-#   values: 
-#   - init
-#   - plan
-#   - apply
 
 parameters:
 - name: env
@@ -26,15 +17,9 @@ variables:
   workingDir: '$(System.DefaultWorkingDirectory)/${{ parameters.env }}-Module'
   
 
-# variables: 
-#   dev-env-wd: '$(System.DefaultWorkingDirectory)/dev-Module'
-#   pre-prod-env-wd: '$(System.DefaultWorkingDirectory)/pre-prod-Module'
-#   prod-env-wd: '$(System.DefaultWorkingDirectory)/prod-Module'
 steps:
 - task: TerraformTask@5
   displayName: Terraform init
-  # condition: eq('${{ parameters.env }}', 'dev')
- 
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -43,10 +28,9 @@ steps:
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
     backendAzureRmKey: 'cp.tfstate'
-
 - task: TerraformTask@5
   displayName: Terraform plan
-  # condition: ne('${{ parameters.task }}', 'init')
+  
   inputs:
     provider: 'azurerm'
     command: 'plan'
