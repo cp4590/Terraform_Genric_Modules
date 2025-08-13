@@ -15,6 +15,7 @@ parameters:
 
 variables:
   workingDir: '$(System.DefaultWorkingDirectory)/${{ parameters.env }}-Module'
+  stateFileName: '${{ parameters.env }}-cp.tfstate'
   
 
 steps:
@@ -27,7 +28,7 @@ steps:
     backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
-    backendAzureRmKey: 'cp.tfstate'
+    backendAzureRmKey: '$(stateFileName)'
 - task: TerraformTask@5
   displayName: Terraform plan
   
