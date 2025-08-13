@@ -8,8 +8,8 @@ terraform {
 backend "azurerm"  {
 storage_account_name= "hcl9999999"
 container_name= "hclcontainer"
-resource_group_name = "newrg"
-key = "cp.tfstate"
+resource_group_name = "cprg"
+key = "dev-cp.tfstate"
 }
 }
 
