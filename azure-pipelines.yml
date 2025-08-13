@@ -1,0 +1,62 @@
+name: Terraform Pipeline with Manual Validation
+trigger: none
+pool: default
+
+
+parameters:
+- name: env
+  displayName: Choose env
+  type: string
+  default: dev
+  values: 
+  - dev
+  - pre-prod
+  - prod
+
+variables:
+  workingDir: '$(System.DefaultWorkingDirectory)/${{ parameters.env }}-Module'
+  stateFileName: '${{ parameters.env }}-cp.tfstate'
+  
+stages:
+- stage: Plan
+  displayName: Terraform Plan Stage
+  jobs:
+  - job: plan
+    displayName: Terraform Init & Plan
+steps:
+- task: TerraformTask@5
+  displayName: terraform init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(workingDir)'
+    backendServiceArm: 'cptestazuresvc'
+    backendAzureRmStorageAccountName: 'hcl9999999'
+    backendAzureRmContainerName: 'hclcontainer'
+    backendAzureRmKey: '$(stateFileName)'
+- task: TerraformTask@5
+  displayName: Terraform plan
+  
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(workingDir)'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
+
+- stage: Apply
+  displayName: Terraform Apply Stage
+  jobs:
+  - job: Apply
+    displayName: Terraform Apply
+- task: ManualValidation@1
+  inputs:
+    notifyUsers: 'chandrapal31@outlook.com'
+    approvers: 'chandrapal31@outlook.com'
+    instructions: 'pls check'
+- task: TerraformTask@5
+  displayName: Terraform apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(workingDir)'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
