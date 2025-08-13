@@ -39,7 +39,7 @@ steps:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: '$(workingDir)'
-    backendServiceArm: '$(svc)'
+    backendServiceArm: 'cptestazuresvc'
     backendAzureRmStorageAccountName: 'hcl9999999'
     backendAzureRmContainerName: 'hclcontainer'
     backendAzureRmKey: 'cp.tfstate'
@@ -51,7 +51,7 @@ steps:
     provider: 'azurerm'
     command: 'plan'
     workingDirectory: '$(workingDir)'
-    environmentServiceNameAzureRM: '$(svc)'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
 
 - task: TerraformTask@5
   displayName: Terraform apply
@@ -60,4 +60,4 @@ steps:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(workingDir)'
-    environmentServiceNameAzureRM: '$(svc)'
+    environmentServiceNameAzureRM: 'cptestazuresvc'
