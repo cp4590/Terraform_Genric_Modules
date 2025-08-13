@@ -19,7 +19,7 @@ variables:
 
 steps:
 - task: TerraformTask@5
-  displayName: Terraform init
+  displayName: terraform init
   inputs:
     provider: 'azurerm'
     command: 'init'
