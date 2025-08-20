@@ -14,11 +14,15 @@ on:
 
 jobs:
   terraform:
-    name: Test Terraform for each env
+    name: Terraform - ${{ matrix.environment }}
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        environment: [dev, pre-prod, prod]
+        environment:
+          - dev-Module
+          - pre-prod-Module
+          - prod-Module
 
     env:
       TF_IN_AUTOMATION: true
@@ -26,7 +30,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform/envs/${{ matrix.environment }}
+        working-directory: ${{ matrix.environment }}
 
     steps:
       - name: Checkout repo
@@ -35,7 +39,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.6  # use your desired version
+          terraform_version: 1.6.6  # ya jo bhi version tu use karta ho
 
       - name: Terraform Init
         run: terraform init
