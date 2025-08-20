@@ -2,15 +2,15 @@ name: Terraform Multi-Env Pipeline
 
 on:
   workflow_dispatch:
-    inputs:
-      apply:
-        description: 'Apply infrastructure? (true/false)'
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+    # inputs:
+    #   apply:
+    #     description: 'Apply infrastructure? (true/false)'
+    #     required: true
+    #     default: 'false'
+    #     type: choice
+    #     options:
+    #       - 'false'
+    #       - 'true'
 
 jobs:
   terraform:
