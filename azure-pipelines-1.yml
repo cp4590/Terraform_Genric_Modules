@@ -4,7 +4,7 @@ trigger:
 
 jobs: 
 - job: Teraform_Plan
-  pool: Default
+  pool: Azure Pipelines
   steps:
 
   - task: TerraformInstaller@1
@@ -40,7 +40,7 @@ jobs:
 - job: Scanning_Job
   displayName: Tfsec scanning   
   dependsOn: Teraform_Plan
-  pool: default
+  pool: Azure Pipelines
   steps:
   - task: tfsec@1
     inputs:
@@ -65,7 +65,7 @@ jobs:
 - job: Tearrform_Apply
   displayName: Terraform Apply
   dependsOn: Teraform_Plan
-  pool: Default
+  pool: Azure Pipelines
   steps:
   - task: TerraformTask@5
     inputs:
