@@ -4,8 +4,7 @@ trigger:
 
 jobs: 
 - job: Teraform_Plan
-  displayName: Terraform Init
-  pool: default
+  pool: Default
   steps:
   - task: TerraformTask@5
     displayName: Terraform Init
@@ -36,6 +35,7 @@ jobs:
 
 - job: Scanning_Job
   displayName: Tfsec scanning   
+  dependsOn: Teraform_Plan
   pool: default
   steps:
   - task: tfsec@1
@@ -45,6 +45,7 @@ jobs:
   
 - job: Manual_Validation
   displayName: Manual Validation for plan 
+  dependsOn: Teraform_Plan
   pool: server
   steps:
   - task: ManualValidation@1
@@ -61,7 +62,7 @@ jobs:
 - job: Tearrform_Apply
   displayName: Terraform Apply
   dependsOn: Teraform_Plan
-  pool: default
+  pool: Default
   steps:
   - task: TerraformTask@5
     inputs:
