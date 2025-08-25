@@ -56,11 +56,10 @@ jobs:
     inputs:
       notifyUsers: |
         chandrapal31@outlook.com
-            divya1993pratap@hotmail.com
-            ashirbad.pal@outlook.com
+            
       approvers: |
         chandrapal31@outlook.com
-            divya1993pratap@hotmail.com
+           
       instructions: 'Pls approve as per plan'
 
 - job: Tearrform_Apply
