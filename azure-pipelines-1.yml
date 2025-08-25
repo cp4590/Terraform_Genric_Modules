@@ -1,0 +1,44 @@
+trigger:
+- main
+- feature/*
+
+jobs: 
+- job: Teraform_Plan
+  displayName: Terraform Init
+  pool: default
+  steps:
+  - task: TerraformTask@5
+    displayName: Terraform Init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+      backendServiceArm: 'cptestazuresvc'
+      backendAzureRmStorageAccountName: 'hcl9999999'
+      backendAzureRmContainerName: 'hclcontainer'
+      backendAzureRmKey: 'cp.tfstate'
+
+  - task: TerraformTask@5
+    displayName: Terraform Validate
+    inputs:
+      provider: 'azurerm'
+      command: 'validate'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+      
+
+  - task: TerraformTask@5
+    displayName: Terraform Plan
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+      environmentServiceNameAzureRM: 'cptestazuresvc'
+
+- job: Scanning_Job
+  displayName: Tfsec scanning   
+  pool: default
+  steps:
+  
+  
+  
+
