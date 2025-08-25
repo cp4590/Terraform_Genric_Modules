@@ -6,6 +6,10 @@ jobs:
 - job: Teraform_Plan
   pool: Default
   steps:
+
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
   - task: TerraformTask@5
     displayName: Terraform Init
     inputs:
