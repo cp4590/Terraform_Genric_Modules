@@ -1,6 +1,8 @@
-trigger: 
-- main
-- feature/*
+trigger:     
+  - main
+  - feature/*
+
+
 
 jobs: 
 - job: Teraform_Plan
