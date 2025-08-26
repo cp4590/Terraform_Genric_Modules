@@ -1,14 +1,11 @@
 trigger:
- branches:
-   include:
-     - feature/*
-   exclude:
-     - main     
  
-
-
-
-
+  branches:
+    include:
+    - feature/*
+    exclude:
+    - main
+  
 jobs: 
 - job: Teraform_Plan
   pool: ashirbad-pool
