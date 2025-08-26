@@ -1,11 +1,10 @@
-trigger: 
-- main
-- feature/*
+trigger: none
+# - main
+# - feature/*
 
 jobs: 
 - job: Teraform_Plan
-  pool: Azure Pipelines
-  # dependsOn: Scanning_Job
+  pool: ashirbad-pool
   steps:
 
   - task: TerraformInstaller@1
@@ -40,7 +39,7 @@ jobs:
 
 - job: Scanning_Job
   displayName: Tfsec scanning   
-  pool: Azure Pipelines
+  pool: ashirbad-pool
   steps:
   - task: tfsec@1
     inputs:
@@ -65,21 +64,21 @@ jobs:
 - job: Tearrform_Apply
   displayName: Terraform Apply
   dependsOn: Manual_Validation
-  pool: Azure Pipelines
+  pool: ashirbad-pool
   steps:
   # - task: TerraformInstaller@1
   #   inputs:
   #     terraformVersion: 'latest'
-  - task: TerraformTask@5
-    displayName: Terraform Init
-    inputs:
-      provider: 'azurerm'
-      command: 'init'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
-      backendServiceArm: 'cptestazuresvc'
-      backendAzureRmStorageAccountName: 'hcl9999999'
-      backendAzureRmContainerName: 'hclcontainer'
-      backendAzureRmKey: 'cp.tfstate'
+  # - task: TerraformTask@5
+  #   displayName: Terraform Init
+  #   inputs:
+  #     provider: 'azurerm'
+  #     command: 'init'
+  #     workingDirectory: '$(System.DefaultWorkingDirectory)/dev-Module'
+  #     backendServiceArm: 'cptestazuresvc'
+  #     backendAzureRmStorageAccountName: 'hcl9999999'
+  #     backendAzureRmContainerName: 'hclcontainer'
+  #     backendAzureRmKey: 'cp.tfstate'
 
   - task: TerraformTask@5
     inputs:
