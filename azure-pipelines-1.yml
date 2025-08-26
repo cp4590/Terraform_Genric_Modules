@@ -1,10 +1,11 @@
-trigger:
-- main
-- feature/*
+trigger: none
+# - main
+# - feature/*
 
 jobs: 
 - job: Teraform_Plan
   pool: Azure Pipelines
+  # dependsOn: Scanning_Job
   steps:
 
   - task: TerraformInstaller@1
@@ -39,7 +40,6 @@ jobs:
 
 - job: Scanning_Job
   displayName: Tfsec scanning   
-  dependsOn: Teraform_Plan
   pool: Azure Pipelines
   steps:
   - task: tfsec@1
@@ -64,9 +64,12 @@ jobs:
 
 - job: Tearrform_Apply
   displayName: Terraform Apply
-  dependsOn: Teraform_Plan
+  dependsOn: Manual_Validation
   pool: Azure Pipelines
   steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
   - task: TerraformTask@5
     displayName: Terraform Init
     inputs:
