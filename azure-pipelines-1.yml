@@ -1,10 +1,10 @@
 trigger:
- 
   branches:
     include:
-    - feature/*
+      - feature/*
     exclude:
-    - main
+      - main
+
   
 jobs: 
 - job: Teraform_Plan
