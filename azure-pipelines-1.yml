@@ -1,6 +1,11 @@
-trigger:     
-  - main
-  - feature/*
+trigger:
+ branches:
+   include:
+     - feature/*
+   exclude:
+     - main     
+ 
+
 
 
 
