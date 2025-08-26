@@ -1,9 +1,6 @@
 trigger:
-  branches:
-    include:
-      - feature/*
-    exclude:
-      - main
+- main
+- feature/*
 
   
 jobs: 
