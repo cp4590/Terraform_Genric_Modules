@@ -1,6 +1,6 @@
-trigger: none
-# - main
-# - feature/*
+trigger: 
+- main
+- feature/*
 
 jobs: 
 - job: Teraform_Plan
@@ -67,9 +67,9 @@ jobs:
   dependsOn: Manual_Validation
   pool: Azure Pipelines
   steps:
-  - task: TerraformInstaller@1
-    inputs:
-      terraformVersion: 'latest'
+  # - task: TerraformInstaller@1
+  #   inputs:
+  #     terraformVersion: 'latest'
   - task: TerraformTask@5
     displayName: Terraform Init
     inputs:
