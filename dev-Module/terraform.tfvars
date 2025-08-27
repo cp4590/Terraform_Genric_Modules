@@ -1,6 +1,6 @@
 eah-rg = {
   rg1 = {
-    name     = "dev-eah-us-rg2"
+    name     = "dev-eah-us-rg1"
     location = "west us"
   }
 }
